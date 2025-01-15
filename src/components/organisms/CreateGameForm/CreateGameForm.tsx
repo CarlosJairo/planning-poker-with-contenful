@@ -3,8 +3,8 @@ import { validInputCreatePartida } from "../../../utils";
 import { useForm } from "../../../hooks/useForm";
 import Label from "../../atoms/Label/Label";
 import ButtonSubmit from "../../atoms/ButtonSubmit/ButtonSubmit";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../app/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../../app/store";
 import { setOwerRol } from "../../../reducers/user/userSlice";
 import { useNavigate } from "react-router-dom";
 import "./CreateGameForm.scss";
@@ -37,6 +37,8 @@ const resolver = (values: CreateGameFormValues) => {
 };
 
 const CreateGameForm: React.FC = () => {
+  const { content } = useSelector((state: RootState) => state.content)
+
   const { formValue, isError, messageError, handleChange } =
     useForm<CreateGameFormProps>({
       defaultValues: { name: "" },
@@ -55,7 +57,7 @@ const CreateGameForm: React.FC = () => {
   return (
     <form className="o-create-game-form" onSubmit={handleSubmit}>
       <div className="o-create-game-form__form-group">
-        <Label htmlFor={"nombre-partida"}>Nombra la partida</Label>
+        <Label htmlFor={"nombre-partida"}>{content.gameName}</Label>
         <input
           type="text"
           id="nombre-partida"
@@ -72,7 +74,7 @@ const CreateGameForm: React.FC = () => {
       <ButtonSubmit
         disabled={!isError && formValue.name.length > 0 ? false : true}
       >
-        Crear partida
+        {content.createGameBtn}
       </ButtonSubmit>
     </form>
   );

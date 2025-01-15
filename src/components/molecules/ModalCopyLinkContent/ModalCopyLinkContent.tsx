@@ -3,6 +3,8 @@ import { useLocation } from "react-router-dom";
 import Button from "../../atoms/Button/Button";
 import { CloseSvg } from "../../atoms/Icons";
 import "./ModalCopyLinkContent.scss";
+import { RootState } from "../../../app/store";
+import { useSelector } from "react-redux";
 
 export const copyToClipboard = async (textToCopy: string): Promise<boolean> => {
   try {
@@ -24,6 +26,7 @@ const ModalCopyLinkContent: React.FC<ModalCopyLinkContentProps> = ({
   const [url, setUrl] = useState<string>("");
   const [isCopied, setIsCopied] = useState<boolean>(false);
   const location = useLocation();
+  const { content } = useSelector((state: RootState) => state.content);
 
   useEffect(() => {
     setUrl(window.location.origin + location.pathname);
@@ -45,7 +48,7 @@ const ModalCopyLinkContent: React.FC<ModalCopyLinkContentProps> = ({
   return (
     <>
       <header className="m-modal__header">
-        <p>Invitar jugadores</p>
+        <p>{content.invitePlayers}</p>
         <Button onClick={toggleModalLink}>
           <CloseSvg />
         </Button>
@@ -54,7 +57,7 @@ const ModalCopyLinkContent: React.FC<ModalCopyLinkContentProps> = ({
         <input type="text" value={url} onChange={handleInputChange} />
 
         <Button className={"m-modal__content__copy-link"} onClick={handleClick}>
-          {isCopied ? "Copiado" : "Copiar link"}
+          {isCopied ? content.copiedLink : content.copyLink}
         </Button>
       </div>
     </>

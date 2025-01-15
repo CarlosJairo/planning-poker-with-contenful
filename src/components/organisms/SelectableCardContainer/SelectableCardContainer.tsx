@@ -22,6 +22,7 @@ const SelectableCardContainer: React.FC<SelectableCardContainerProps> = ({
 }) => {
   const [disabledCards, setDisabledCards] = useState(false);
   const { rolCurrentUser, id } = useSelector((state: RootState) => state.user);
+  const { content } = useSelector((state: RootState) => state.content);
 
   const dispatch = useDispatch();
   const isViwer = rolCurrentUser.includes("viwer");
@@ -41,13 +42,12 @@ const SelectableCardContainer: React.FC<SelectableCardContainerProps> = ({
       data-testid="selectable-card-container"
     >
       <div className="o-selectable-cards__title-select">
-        <h6>Elige una carta 👇</h6>
+        <h6>{content.chooseACard}</h6>
         <SelectPoolCards />
       </div>
       <div
-        className={`${
-          disabledCards && "o-selectable-cards__cards--disabled"
-        } o-selectable-cards__cards`}
+        className={`${disabledCards && "o-selectable-cards__cards--disabled"
+          } o-selectable-cards__cards`}
       >
         {poolCards.length > 0 ? (
           poolCards.map((card) => (
@@ -61,7 +61,7 @@ const SelectableCardContainer: React.FC<SelectableCardContainerProps> = ({
             </Card>
           ))
         ) : (
-          <p>No hay cartas</p>
+          <p>{content.thereAreNotCards}</p>
         )}
       </div>
     </section>

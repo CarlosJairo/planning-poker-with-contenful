@@ -8,8 +8,7 @@ import useContent from "./hooks/useContent/useContent";
 
 function App() {
   const [showSplashScreen, setShowSplashScreen] = useState<boolean>(true);
-  const { content } = useContent();
-
+  useContent();
   return (
     <>
       <HashRouter>

@@ -48,6 +48,7 @@ const UserForm: React.FC<{
 
   const dispatch = useDispatch();
   const { rolCurrentUser } = useSelector((state: RootState) => state.user);
+  const { content } = useSelector((state: RootState) => state.content);
 
   // Verificar si tiene el rol de propietario
   const isOwner = rolCurrentUser.includes("owner");
@@ -76,7 +77,7 @@ const UserForm: React.FC<{
   return (
     <form className="o-user-form" onSubmit={handleSubmit}>
       <div className="o-user-form__form-group">
-        <Label htmlFor={"name"}>Tu nombre</Label>
+        <Label htmlFor={"name"}>{content.yourName}</Label>
         <input
           type="text"
           id="name"
@@ -95,7 +96,7 @@ const UserForm: React.FC<{
             onChange={() => setRol("player")}
           />
           <Label htmlFor={"player"}>
-            Jugador
+            {content.player}
             <span className="o-user-form__radio-button"></span>
           </Label>
           <InputRadio
@@ -105,13 +106,13 @@ const UserForm: React.FC<{
             onChange={() => setRol("viwer")}
           />
           <Label htmlFor={"viwer"}>
-            Espectador
+            {content.viwer}
             <span className="o-user-form__radio-button"></span>
           </Label>
         </div>
       </div>
       <ButtonSubmit disabled={!isError && name.length > 0 ? false : true}>
-        Continuar
+        {content.continue}
       </ButtonSubmit>
     </form>
   );
