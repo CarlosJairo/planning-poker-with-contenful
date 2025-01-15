@@ -3,10 +3,12 @@ import { useState } from "react";
 import SplashScreen from "./components/pages/SplashScreen/SplashScreen";
 import CreateGameScreen from "./components/pages/CreateGameScreen/CreateGameScreen";
 import GameTableScreen from "./components/pages/GameTableScreen/GameTableScreen";
+import useContent from "./hooks/useContent/useContent";
 
 
 function App() {
   const [showSplashScreen, setShowSplashScreen] = useState<boolean>(true);
+  const { content } = useContent();
 
   return (
     <>
