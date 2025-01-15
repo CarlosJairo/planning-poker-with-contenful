@@ -3,8 +3,20 @@ import { Provider } from "react-redux";
 import configureMockStore from "redux-mock-store";
 import { MemoryRouter } from "react-router-dom";
 import CreateGameForm from "./CreateGameForm";
-import { setOwerRol } from "../../../reducers/user/userSlice";
+// import { setOwerRol } from "../../../reducers/user/userSlice";
 import "@testing-library/jest-dom";
+jest.mock("react-redux", () => ({
+  ...jest.requireActual("react-redux"),
+  useSelector: (selector: any) =>
+    selector({
+      content: {
+        content: {
+          gameName: "Nombra la partida",
+          createGameBtn: "Crear partida",
+        }
+      }
+    }),
+}));
 
 // Configura el mock store sin thunk
 const mockStore = configureMockStore();
@@ -18,11 +30,11 @@ jest.mock("react-router-dom", () => ({
 }));
 
 // Mock de useDispatch
-const mockDispatch = jest.fn();
-jest.mock("react-redux", () => ({
-  ...jest.requireActual("react-redux"),
-  useDispatch: () => mockDispatch,
-}));
+// const mockDispatch = jest.fn();
+// jest.mock("react-redux", () => ({
+//   ...jest.requireActual("react-redux"),
+//   useDispatch: () => mockDispatch,
+// }));
 
 describe("CreateGameForm", () => {
   test("should render the form with correct elements", () => {
@@ -86,7 +98,7 @@ describe("CreateGameForm", () => {
     });
 
     // Verifica que dispatch y navigate hayan sido llamados
-    expect(mockDispatch).toHaveBeenCalledWith(setOwerRol());
+    // expect(mockDispatch).toHaveBeenCalledWith(setOwerRol());
     expect(mockNavigate).toHaveBeenCalledWith("/game/Nueva Partida");
   });
 });

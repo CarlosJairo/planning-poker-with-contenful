@@ -17,7 +17,17 @@ jest.mock("react-redux", () => ({
   ...jest.requireActual("react-redux"),
   useDispatch: () => mockDispatch,
   useSelector: (selector: any) =>
-    selector({ user: { rolCurrentUser: ["player"] } }),
+    selector({
+      user: { rolCurrentUser: ["player"] },
+      content: {
+        content: {
+          yourName: "Tu nombre",
+          continue: "Continuar",
+          player: "Jugador",
+          viwer: "Espectador"
+        }
+      }
+    }),
 }));
 
 // Mock de useNavigate
@@ -32,7 +42,7 @@ describe("UserForm", () => {
     render(
       <Provider store={store}>
         <MemoryRouter>
-          <UserForm toggleModalUserForm={() => {}} />
+          <UserForm toggleModalUserForm={() => { }} />
         </MemoryRouter>
       </Provider>
     );
@@ -50,7 +60,7 @@ describe("UserForm", () => {
     render(
       <Provider store={store}>
         <MemoryRouter>
-          <UserForm toggleModalUserForm={() => {}} />
+          <UserForm toggleModalUserForm={() => { }} />
         </MemoryRouter>
       </Provider>
     );

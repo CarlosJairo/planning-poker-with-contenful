@@ -1,8 +1,21 @@
 import { copyToClipboard } from "./ModalCopyLinkContent";
+
+jest.mock("react-redux", () => ({
+  ...jest.requireActual("react-redux"),
+  useSelector: (selector: any) =>
+    selector({
+      content: {
+        content: {
+          copiedLink: "Tu nombre",
+          copyLink: "Continuar",
+        }
+      }
+    }),
+}));
 describe("copyToClipboard function", () => {
   // Mock para console.error para evitar errores en la consola
   beforeAll(() => {
-    jest.spyOn(console, "error").mockImplementation(() => {});
+    jest.spyOn(console, "error").mockImplementation(() => { });
   });
 
   // Configurar el mock para navigator.clipboard.writeText
